@@ -40,14 +40,16 @@
             </div>
         @endif
 				<button class="btn btn-primary btn-sm mb-2 float-right" data-toggle="modal" data-target="#addModal">Tambah Data</button>
-				<table class="table table-sm table-bordered table-striped">
+				<table class="table table-sm table-bordered table-striped text-sm" id="datatable">
 					<tr class="bg-dark text-center">
 						<th>No</th>
-						<th>Kode Kontak</th>
+            <th>Produk/Jasa</th>
+						<th>Keterangan</th>
 						<th>Nama</th>
 						<th>Email</th>
             <th>No. Tlp</th>
-						<th>Alamat</th>
+            <th>Alamat</th>
+            <th>Jumlah</th>
 						<th>Aksi</th>
 					</tr>
           @php 
@@ -55,15 +57,17 @@
           @endphp
           @foreach ($pemasukan as $p)
           <tr>
-            <td>{{ $n++ }}</td>
-            <td>{{ $p->id_produk }}</td>
-            <td>{{ $p->kontak->nama_kontak }}</td>
-            <td>{{ $p->id_prson }}</td>
+          <td><a href="{{route('result_transaksi', ['id'=>$p->id_transaksi])}}" class="link">{{ $n++ }}</a></td>
+            <td>{{ $p->produk->nama_produk }}</td>
             <td>{{ $p->keterangan }}</td>
-            <td>{{ $p->nominal }}</td>
+            <td>{{ $p->kontak->nama_kontak }}</td>
+            <td>{{ $p->kontak->email }}</td>
+            <td>{{ $p->kontak->no_tlp }}</td>
+            <td>{{ $p->kontak->alamat }}</td>
+            <td class="text-right" nowrap>Rp. {{ number_format($p->nominal, 0, '.', ',') }},-</td>
             <td class="text-center">
-              <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" onclick="fill_edit('{{ $p->id_kontak }}','{{ $p->kode_kontak }}','{{ $p->nama_kontak }}', '{{ $p->email }}', '{{ $p->no_tlp }}', '{{ $p->alamat }}');">Edit</button>
-              <a onclick="return confirm('Hapus data kontak?')" href="delete_kontak/{{ $p->id_kontak }}" class="btn btn-danger btn-sm">Hapus</a>
+              <!-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" onclick="fill_edit('{{ $p->id_kontak }}','{{ $p->kode_kontak }}','{{ $p->nama_kontak }}', '{{ $p->email }}', '{{ $p->no_tlp }}', '{{ $p->alamat }}');">Edit</button> -->
+              <a onclick="return confirm('Hapus data kontak?')" href="{{ route('delete_pemasukan', ['id'=>$p->id_transaksi]) }}" class="btn btn-danger btn-sm">Hapus</a>
             </td>
           </tr>
           @endforeach
@@ -74,7 +78,6 @@
 	<!-- /.card-body -->
 </div>
 <!-- /.card -->
-@endsection
 
 
 <!-- Modal -->
@@ -194,6 +197,7 @@
     </div>
   </div>
 </div>
+@endsection
 
 <script>
   function fill_edit(id, kode, nama){

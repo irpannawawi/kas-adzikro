@@ -57,7 +57,7 @@
           <!-- Add icons to the links using the .nav-icon class
           	with font-awesome or any other icon font library -->
           	<li class="nav-item">
-          		<a href="dashboard" class="nav-link">
+          		<a href="{{route('dashboard')}}" class="nav-link">
           			<i class="nav-icon fas fa-tachometer-alt"></i>
           			<p>
           				Dashboard
@@ -74,19 +74,19 @@
           		</a>
           		<ul class="nav nav-treeview">
           			<li class="nav-item">
-          				<a href="akun" class="nav-link">
+          				<a href="{{route('akun')}}" class="nav-link">
           					<i class="far fa-circle nav-icon"></i>
           					<p>Akun</p>
           				</a>
           			</li>
           			<li class="nav-item">
-          				<a href="produk" class="nav-link">
+          				<a href="{{route('produk')}}" class="nav-link">
           					<i class="far fa-circle nav-icon"></i>
           					<p>Produk</p>
           				</a>
           			</li>
           			<li class="nav-item">
-          				<a href="kontak" class="nav-link">
+          				<a href="{{route('kontak')}}" class="nav-link">
           					<i class="far fa-circle nav-icon"></i>
           					<p>Kontak</p>
           				</a>
@@ -98,7 +98,7 @@
           				</a>
           			</li>
           			<li class="nav-item">
-          				<a href="/administrator" class="nav-link">
+          				<a href="{{route('administrator')}}" class="nav-link">
           					<i class="far fa-circle nav-icon"></i>
           					<p>Administrator</p>
           				</a>
@@ -106,7 +106,7 @@
           		</ul>
           	</li>
           	<li class="nav-item">
-          		<a href="/pemasukan" class="nav-link">
+          		<a href="{{route('pemasukan')}}" class="nav-link">
           			<i class="nav-icon fas fa-chart-pie"></i>
           			<p>
           				Pemasukan
@@ -114,7 +114,7 @@
           		</a>
           	</li>
           	<li class="nav-item">
-          		<a href="pengeluaran" class="nav-link">
+          		<a href="{{route('pengeluaran')}}" class="nav-link">
           			<i class="nav-icon fas fa-chart-pie"></i>
           			<p>
           				Pengeluaran
@@ -122,7 +122,7 @@
           		</a>
           	</li>
           	<li class="nav-item">
-          		<a href="#" class="nav-link">
+          		<a href="{{route('jurnal')}}" class="nav-link">
           			<i class="nav-icon fas fa-chart-pie"></i>
           			<p>
           				Laporan

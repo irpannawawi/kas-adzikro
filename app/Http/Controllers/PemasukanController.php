@@ -76,7 +76,7 @@ class PemasukanController extends Controller
                 ];
                 $dataDebitPiutang = [
                     'id_transaksi'=>$id_transaksi, 
-                    'kode_akun'=>$produk[0]->kredit_akun_id,
+                    'kode_akun'=>'200-10',
                     'debit'=>$request->input('harga')-$request->input('dibayar'),
                     'kredit'=>0,
                 ];
@@ -104,7 +104,8 @@ class PemasukanController extends Controller
                 Jurnal::insert([$dataDebit, $dataKredit]);
         }
 
-        return redirect('result_transaksi/'.$id_transaksi);
+        return redirect('result_transaksi/'.$id_transaksi)->with('url-back', route('pemasukan'));
+
     }
     public function result_transaksi(Request $request, $id)
     {
@@ -114,5 +115,12 @@ class PemasukanController extends Controller
             'jurnal' => Jurnal::where('id_transaksi', $id)->get(),
         ];
         return view('bendahara.transaksi', $data);
+    }
+    public function delete_transaksi(Request $request, $id)
+    {
+        $jurnal = Jurnal::where('id_transaksi', $id)->delete();
+        $pemasukan = Pemasukan::where('id_transaksi',$id)->delete();
+        return redirect('pemasukan')->with('msg-danger', 'Transaksi Dihapus');
+
     }
 }

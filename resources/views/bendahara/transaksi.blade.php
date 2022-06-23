@@ -8,12 +8,7 @@
   <div class="card-header">
     <h3 class="card-title">Data Transaksi</h3>
     <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-        <i class="fas fa-minus"></i>
-      </button>
-      <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-        <i class="fas fa-times"></i>
-      </button>
+    <a href="{{ session('url-back')?session('url-back'):url()->previous() }}" class="btn btn-default btn-sm float-right">Kembali</a>
     </div>
   </div>
   <div class="card-body">
@@ -55,7 +50,11 @@
           <tr>
             <td>{{ $n++ }}</td>
             <td>{{ $tr->kontak->nama_kontak }}</td>
-            <td>{{ $tr->produk->nama_produk }}</td>
+            <td>
+              @if ($tr->produk)
+                {{ $tr->produk->nama_produk }}
+              @endif
+            </td>
             <td>{{ $tr->keterangan }}</td>
             <td>Rp. {{ number_format($tr->nominal,0,'.',',') }},-</td>
             <td>{{ $tr->tanggal }}</td>
@@ -75,7 +74,7 @@
           </tr>
           <tr>
             <td>{{ $transaksi[0]->tanggal }}</td>
-            <td >{{ $transaksi[0]->produk->nama_produk }} ({{ $transaksi[0]->keterangan }})</td>
+            <td >{{ $transaksi[0]->produk!==null?$transaksi[0]->produk->nama_produk:'' }} ({{ $transaksi[0]->keterangan }})</td>
             <td></td>
             <td></td>
           </tr>
