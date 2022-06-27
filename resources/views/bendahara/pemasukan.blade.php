@@ -39,8 +39,12 @@
                 {{ session('msg-danger') }}
             </div>
         @endif
+        @if (Auth::user()->level == 'bendahara')
 				<button class="btn btn-primary btn-sm mb-2 float-right" data-toggle="modal" data-target="#addModal">Tambah Data</button>
-				<table class="table table-sm table-bordered table-striped text-sm" id="datatable">
+        @endif
+				<table class="table table-sm table-bordered table-striped text-sm" id="dataTable">
+          
+          <thead>
 					<tr class="bg-dark text-center">
 						<th>No</th>
             <th>Produk/Jasa</th>
@@ -50,8 +54,11 @@
             <th>No. Tlp</th>
             <th>Alamat</th>
             <th>Jumlah</th>
+        @if (Auth::user()->level == 'bendahara')
 						<th>Aksi</th>
+        @endif
 					</tr>
+          </thead>
           @php 
             $n=1;
           @endphp
@@ -65,10 +72,12 @@
             <td>{{ $p->kontak->no_tlp }}</td>
             <td>{{ $p->kontak->alamat }}</td>
             <td class="text-right" nowrap>Rp. {{ number_format($p->nominal, 0, '.', ',') }},-</td>
+        @if (Auth::user()->level == 'bendahara')
             <td class="text-center">
               <!-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" onclick="fill_edit('{{ $p->id_kontak }}','{{ $p->kode_kontak }}','{{ $p->nama_kontak }}', '{{ $p->email }}', '{{ $p->no_tlp }}', '{{ $p->alamat }}');">Edit</button> -->
               <a onclick="return confirm('Hapus data kontak?')" href="{{ route('delete_pemasukan', ['id'=>$p->id_transaksi]) }}" class="btn btn-danger btn-sm">Hapus</a>
             </td>
+            @endif
           </tr>
           @endforeach
 				</table>

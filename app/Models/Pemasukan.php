@@ -29,5 +29,9 @@ class Pemasukan extends Model
     public function kontak()
     {
         return $this->hasOne(Kontak::class, 'id_kontak', 'id_kontak');
+    }    
+    public function prson()
+    {
+        return $this->hasOne(Prson::class, 'id_prson', 'id_prson');
     }
 }

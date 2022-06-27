@@ -8,9 +8,11 @@
 	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/plugins/fontawesome-free/css/all.min.css">
+	<script src="https://kit.fontawesome.com/c834f34fc1.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/dist/css/adminlte.min.css">
+	<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/plugins/jquery-ui/jquery-ui.css">
 </head>
 <body class="hold-transition sidebar-mini">
 	<!-- Site wrapper -->
@@ -58,7 +60,7 @@
           	with font-awesome or any other icon font library -->
           	<li class="nav-item">
           		<a href="{{route('dashboard')}}" class="nav-link">
-          			<i class="nav-icon fas fa-tachometer-alt"></i>
+          			<i class="nav-icon fas fa-tachometer-alt text-warning"></i>
           			<p>
           				Dashboard
           			</p>
@@ -66,13 +68,14 @@
           	</li>
           	<li class="nav-item">
           		<a href="#" class="nav-link">
-          			<i class="nav-icon fas fa-copy"></i>
+          			<i class="nav-icon fa-solid fa-database text-info" ></i>
           			<p>
           				Master Data
           				<i class="fas fa-angle-left right"></i>
           			</p>
           		</a>
           		<ul class="nav nav-treeview">
+          	@if (Auth::user()->level == 'bendahara')
           			<li class="nav-item">
           				<a href="{{route('akun')}}" class="nav-link">
           					<i class="far fa-circle nav-icon"></i>
@@ -97,6 +100,7 @@
           					<p>Person Level</p>
           				</a>
           			</li>
+          	@endif
           			<li class="nav-item">
           				<a href="{{route('administrator')}}" class="nav-link">
           					<i class="far fa-circle nav-icon"></i>
@@ -107,7 +111,7 @@
           	</li>
           	<li class="nav-item">
           		<a href="{{route('pemasukan')}}" class="nav-link">
-          			<i class="nav-icon fas fa-chart-pie"></i>
+          			<i class="nav-icon fa-solid fa-circle-down text-success"></i>
           			<p>
           				Pemasukan
           			</p>
@@ -115,19 +119,38 @@
           	</li>
           	<li class="nav-item">
           		<a href="{{route('pengeluaran')}}" class="nav-link">
-          			<i class="nav-icon fas fa-chart-pie"></i>
+          			<i class="nav-icon fa-solid fa-circle-up text-danger"></i>
           			<p>
           				Pengeluaran
           			</p>
           		</a>
           	</li>
           	<li class="nav-item">
-          		<a href="{{route('jurnal')}}" class="nav-link">
-          			<i class="nav-icon fas fa-chart-pie"></i>
+          		<a href="#" class="nav-link">
+          			<i class="nav-icon fas fa-copy text-white"></i>
           			<p>
           				Laporan
+          				<i class="fas fa-angle-left right"></i>
           			</p>
           		</a>
+          		<ul class="nav nav-treeview">
+          			<li class="nav-item">
+		          		<a href="{{route('laporan-transaksi')}}" class="nav-link">
+		          			<i class="nav-icon fa fa-exchange"></i>
+		          			<p>
+		          				Laporan Transaksi
+		          			</p>
+		          		</a>
+          			</li>
+          			<li class="nav-item">
+		          		<a href="{{route('jurnal')}}" class="nav-link">
+		          			<i class="nav-icon fa fa-scale-balanced"></i>
+		          			<p>
+		          				Jurnal
+		          			</p>
+		          		</a>
+          			</li>
+          		</ul>
           	</li>
           </ul>
       </nav>
@@ -165,9 +188,9 @@
 
 <footer class="main-footer">
 	<div class="float-right d-none d-sm-block">
-		<b>Version</b> 3.2.0
+		<b>Version</b> 1.0.0 - beta
 	</div>
-	<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+	<strong>Copyright &copy; 2022 <a href="https://nawwal.my.id">Nawwal</a>.</strong> All rights reserved.
 </footer>
 
 <!-- Control Sidebar -->
@@ -182,8 +205,20 @@
 <script src="{{ asset('/')}}AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('/')}}AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="{{ asset('/')}}AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ asset('/')}}AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Fontawesome -->
+<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/plugins/fontawesome6/js/all.min.js">
 <!-- AdminLTE App -->
 <script src="{{ asset('/')}}AdminLTE/dist/js/adminlte.min.js"></script>
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#dataTable').DataTable();
+});
+
+
+</script>
 
 </body>
 </html>
