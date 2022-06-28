@@ -46,6 +46,7 @@
          <thead>
          <tr class="bg-dark text-center">
           <th>No</th>
+          <th>Tanggal</th>
           <th>Keterangan</th>
           <th>Nama</th>
           <th>Email</th>
@@ -63,6 +64,7 @@
         @foreach ($pemasukan as $p)
         <tr>
           <td><a href="{{route('result_transaksi', ['id'=>$p->id_transaksi])}}" class="link">{{ $n++ }}</a></td>
+          <td>{{ $p->tanggal }}</td>
           <td>{{ $p->keterangan }}</td>
           <td>{{ $p->kontak->nama_kontak }}</td>
           <td>{{ $p->kontak->email }}</td>
