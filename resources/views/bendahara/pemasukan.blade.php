@@ -46,7 +46,8 @@
           
           <thead>
 					<tr class="bg-dark text-center">
-						<th>No</th>
+            <th>No</th>
+						<th>Tanggal</th>
             <th>Produk/Jasa</th>
 						<th>Keterangan</th>
 						<th>Nama</th>
@@ -66,6 +67,7 @@
           <tr>
           <td><a href="{{route('result_transaksi', ['id'=>$p->id_transaksi])}}" class="link">{{ $n++ }}</a></td>
             <td>{{ $p->produk->nama_produk }}</td>
+            <td>{{ $p->tanggal }}</td>
             <td>{{ $p->keterangan }}</td>
             <td>{{ $p->kontak->nama_kontak }}</td>
             <td>{{ $p->kontak->email }}</td>
