@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BendaharaController;
+use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\MasterdataController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
@@ -73,9 +74,32 @@ Route::middleware('level-user:bendahara')->group(function () {
     Route::get('/delete_pengeluaran/{id}', [PengeluaranController::class, 'delete_transaksi'])->name('delete_pengeluaran');
 
     Route::get('/jurnal', [LaporanController::class, 'jurnal'])->name('jurnal');
+    Route::get('/laporan_transaksi', [LaporanController::class, 'laporan_transaksi'])->name('laporan-transaksi');
 });
 
 // ==========  pimpinan routing ==========
 Route::middleware('level-user:pimpinan')->group(function () {
     Route::get('pimpinan/dashboard', [PimpinanController::class, 'index']);
+
+    // master data administrator
+    Route::get('/administrator', [MasterdataController::class, 'view_administrator'])->name('administrator');
+    Route::post('/add_administrator', [MasterdataController::class, 'store_administrator'])->name('add_administrator');
+    Route::post('/edit_administrator', [MasterdataController::class, 'update_administrator'])->name('edit_administrator');
+    Route::get('/delete_administrator/{id_administrator}', [MasterdataController::class, 'delete_administrator'])->name('delete_administrator');
+
+    
+        // Pemasukan
+    Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan');
+    Route::post('/get_produk', [PemasukanController::class, 'get_produk'])->name('get-produk');
+    Route::post('/add_pemasukan', [PemasukanController::class, 'add_pemasukan'])->name('add_pemasukan');
+    Route::get('/result_transaksi/{id}', [PemasukanController::class, 'result_transaksi'])->name('result_transaksi');
+    Route::get('/delete_pemasukan/{id}', [PemasukanController::class, 'delete_transaksi'])->name('delete_pemasukan');
+    
+    // pengeluaran
+    Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran');
+    Route::post('/add_pengeluaran', [PengeluaranController::class, 'add_pengeluaran'])->name('add_pengeluaran');
+    Route::get('/delete_pengeluaran/{id}', [PengeluaranController::class, 'delete_transaksi'])->name('delete_pengeluaran');
+
+    Route::get('/jurnal', [LaporanController::class, 'jurnal'])->name('jurnal');
+    Route::get('/laporan_transaksi', [LaporanController::class, 'laporan_transaksi'])->name('laporan-transaksi');
 });

@@ -211,7 +211,7 @@ class MasterdataController extends Controller
 
     public function view_akun(Request $request)
     {
-        $dataAkun = Akun::get();
+        $dataAkun = Akun::orderBy('kode_akun', 'asc')->get();
         $data = [
             'dataAkun' => $dataAkun,
         ];

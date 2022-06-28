@@ -39,36 +39,42 @@
           {{ session('msg-danger') }}
         </div>
         @endif
+        @if (Auth::user()->level == 'bendahara')
         <button class="btn btn-primary btn-sm mb-2 float-right" data-toggle="modal" data-target="#addModal">Tambah Data</button>
-        <table class="table table-sm table-bordered table-striped text-sm" id="datatable">
+        @endif
+        <table class="table table-sm table-bordered table-striped text-sm" id="dataTable">
+         <thead>
          <tr class="bg-dark text-center">
           <th>No</th>
-          <th>Produk/Jasa</th>
           <th>Keterangan</th>
           <th>Nama</th>
           <th>Email</th>
           <th>No. Tlp</th>
           <th>Alamat</th>
           <th>Jumlah</th>
+        @if (Auth::user()->level == 'bendahara')
           <th>Aksi</th>
+          @endif
         </tr>
+         </thead>
         @php 
         $n=1;
         @endphp
         @foreach ($pemasukan as $p)
         <tr>
           <td><a href="{{route('result_transaksi', ['id'=>$p->id_transaksi])}}" class="link">{{ $n++ }}</a></td>
-          <td>{{ $p->produk != null ?$p->produk->nama_produk:'' }}</td>
           <td>{{ $p->keterangan }}</td>
           <td>{{ $p->kontak->nama_kontak }}</td>
           <td>{{ $p->kontak->email }}</td>
           <td>{{ $p->kontak->no_tlp }}</td>
           <td>{{ $p->kontak->alamat }}</td>
           <td class="text-right" nowrap>Rp. {{ number_format($p->nominal, 0, '.', ',') }},-</td>
+        @if (Auth::user()->level == 'bendahara')
           <td class="text-center">
             <!-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" onclick="fill_edit('{{ $p->id_kontak }}','{{ $p->kode_kontak }}','{{ $p->nama_kontak }}', '{{ $p->email }}', '{{ $p->no_tlp }}', '{{ $p->alamat }}');">Edit</button> -->
             <a onclick="return confirm('Hapus data kontak?')" href="{{ route('delete_pengeluaran', ['id'=>$p->id_transaksi]) }}" class="btn btn-danger btn-sm">Hapus</a>
           </td>
+          @endif
         </tr>
         @endforeach
       </table>
@@ -85,7 +91,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-primary">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Akun</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pengeluaran</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -94,19 +100,6 @@
         <form action="/add_pengeluaran" method="post" enctype="multipart/form-data">
           @csrf
           <div class="card-body">
-            <div class="form-group">
-              <label for="kodeAkun">Produk</label>
-              <select name="id_produk" class="form-control" id="produk" onchange="fill_nominal()">
-                <option value="" selected>Pilih Produk</option>
-                @foreach ($produk as $prod)
-                <option value="{{ $prod->id_produk }}">{{ $prod->nama_produk }} Rp.{{ number_format($prod->harga,0,'.',',') }} </option>
-                @endforeach
-              </select>
-            </div>
-              <!-- <div class="form-group">
-                <label for="kodeAkun">Harga</label>
-                <input type="number" name="harga" id="harga" class="form-control">
-              </div> -->
               <div class="form-group">
                 <label for="namaAkun">Kontak</label>
                 <select name="id_kontak" class="form-control">
@@ -175,7 +168,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-primary">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Akun</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Data Pengeluaran</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

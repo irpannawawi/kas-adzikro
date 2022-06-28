@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Models\Pemasukan;
+use \App\Models\Pengeluaran;
 use \App\Models\Kontak;
 use \App\Models\Produk;
 use \App\Models\Prson;
@@ -16,7 +16,7 @@ class PengeluaranController extends Controller
     // 
     public function index(Request $request)
     {
-        $data['pemasukan'] = Pemasukan::where('tipe', 'keluar')->get();
+        $data['pemasukan'] = Pengeluaran::where('tipe', 'keluar')->get();
         $data['kontak'] = Kontak::get();
         $data['prson_level'] = Prson::get();
         $data['produk'] = Produk::get();
@@ -31,9 +31,9 @@ class PengeluaranController extends Controller
             'tanggal' => ['required'],
             'dibayar' => ['required']
         ]);
-        $transaksi = new Pemasukan;
+        $transaksi = new Pengeluaran;
         
-        $transaksi->id_produk = $request->input('id_produk');
+        $transaksi->id_produk = null;
         $transaksi->id_kontak = $request->input('id_kontak');
         $transaksi->id_prson = $request->input('id_prson');
         $transaksi->keterangan = $dataInput['keterangan'];
@@ -119,7 +119,7 @@ class PengeluaranController extends Controller
     public function delete_transaksi(Request $request, $id)
     {
         $jurnal = Jurnal::where('id_transaksi', $id)->delete();
-        $pemasukan = Pemasukan::where('id_transaksi',$id)->delete();
+        $pemasukan = Pengeluaran::where('id_transaksi',$id)->delete();
         return redirect('pengeluaran')->with('msg-danger', 'Transaksi Dihapus');
 
     }
