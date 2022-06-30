@@ -73,8 +73,12 @@ Route::middleware('level-user:bendahara,pimpinan')->group(function () {
     Route::post('/add_pengeluaran', [PengeluaranController::class, 'add_pengeluaran'])->name('add_pengeluaran');
     Route::get('/delete_pengeluaran/{id}', [PengeluaranController::class, 'delete_transaksi'])->name('delete_pengeluaran');
 
+    // Laporan
     Route::get('/jurnal', [LaporanController::class, 'jurnal'])->name('jurnal');
     Route::get('/laporan_transaksi', [LaporanController::class, 'laporan_transaksi'])->name('laporan-transaksi');
+
+    Route::get('/print/laporan_transaksi', [LaporanController::class, 'print_laporan_transaksi'])->name('print-laporan-transaksi');
+    Route::get('/print/jurnal', [LaporanController::class, 'print_jurnal'])->name('print-jurnal');
 });
 
 // ==========  pimpinan routing ==========
