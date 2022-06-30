@@ -17,7 +17,7 @@ class LoginController extends Controller
             }
         }
 
-        return view('login');
+        return view('login2');
     }
     public function Authenticate(Request $request)
     {

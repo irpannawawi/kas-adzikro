@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Adz-Zikro | Log in</title>
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -53,7 +52,7 @@ header a, a:visited {
   position:absolute;
   width:100%;
   bottom:0px;
-  z-index:2;
+  z-index:3;
 }
 
 @keyframes move-twink-back {
@@ -128,20 +127,23 @@ header a, a:visited {
   animation:move-clouds-back 200s linear infinite;
 }
 
-
+.login-box{
+  z-index: 4;
+}
   </style>
+
 </head>
 <body class="hold-transition login-page">
   <div class="stars"></div>
 <div class="twinkling"></div>
 <div class="clouds"></div>
 
-<img class="mosque" src="{{asset('AdminLTE')}}/dist/img/mosque.png" height="200" width="100">
+<img class="mosque" src="{{asset('AdminLTE')}}/dist/img/mosque-blue.png" width="100">
 
 </div>
 
 <div class="login-box">
-  <div class="login-logo">
+  <div class="login-logo bg-warning m-0">
     <a href="/AdminLTE/index2.html"><b>Adz</b>-Zikro</a>
   </div>
   <!-- /.login-logo -->
@@ -179,11 +181,5 @@ header a, a:visited {
 </div>
 <!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/AdminLTE/dist/js/adminlte.min.js"></script>
 </body>
 </html>

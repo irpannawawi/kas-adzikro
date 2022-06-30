@@ -8,6 +8,7 @@
   <div class="card-header">
     <h3 class="card-title">Data Laporan Transaksi</h3>
     <div class="card-tools">
+      <button class="btn btn-primary btn-sm mx-3" data-toggle="modal" data-target="#modal-print"><i class="fa fa-print"></i> Cetak</button>
     <a href="{{ session('url-back')?session('url-back'):url()->previous() }}" class="btn btn-default btn-sm float-right">Kembali</a>
     </div>
   </div>
@@ -84,8 +85,8 @@
               @endif
             </td>
             <td>{{ $tr->keterangan }}</td>
-            <td>Rp. {{ number_format($tr->nominal,0,'.',',') }},-</td>
-            <td>{{ $tr->tanggal }}</td>
+            <td class="{{$tr->tipe=='masuk'?'text-success':'text-danger text-right'}}">Rp. {{ number_format($tr->nominal,0,'.',',') }},-</td>
+            <td class="text-center">{{ $tr->tanggal }}</td>
           </tr>
           @endforeach
         </table>
@@ -96,4 +97,78 @@
 </div>
 <!-- /.card -->
 @endsection
-
+<!-- Modal -->
+<div class="modal fade" id="modal-print" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cetak Laporan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-borderless">
+          <tr>
+              <th nowrap>Harian</th>
+          </tr>
+            <tr>
+                <td class="form-inline">
+                    <form action="{{route('print-laporan-transaksi')}}">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="text" name="tipe" value="harian" hidden>
+                            <select name="tgl" class="form-control">
+                                @for ($n=1; $n<32; $n++)
+                                <option value="{{$n}}" @if ($n == date('d')) selected @endif>{{$n}}</option>
+                                @endfor
+                            </select>
+                            <select name="bln" class="form-control">
+                                @foreach (['01'=>'Jan', '02'=>'Feb', '03'=>'Mar', '04'=>'Apr', '05'=>'Mei', '06'=>'Jun', '07'=>'Jul', '08'=>'Agu', '09'=>'Sep', '10'=>'Okt', '11'=>'Nov', '12'=>'Des'] as $key  => $value)
+                                <option 
+                                @if ($key == date('m')) 
+                                selected 
+                                @endif
+                                value="{{$key}}" 
+                                >{{$value}}</option>
+                                @endforeach
+                            </select>
+                            <input type="number" class="form-control" name="thn" value="{{date('Y')}}">
+                          <div class="input-group-append">
+                            <button class="input-group-text btn btn-info" type="submit">Print</button>
+                          </div>
+                        </div>  
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap>Bulanan</th>
+            </tr>
+            <tr>
+                <td class="form-inline">
+                    <form action="{{route('print-laporan-transaksi')}}">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="text" name="tipe" value="bulanan" hidden>                            <select name="bln" class="form-control">
+                                @foreach (['01'=>'Jan', '02'=>'Feb', '03'=>'Mar', '04'=>'Apr', '05'=>'Mei', '06'=>'Jun', '07'=>'Jul', '08'=>'Agu', '09'=>'Sep', '10'=>'Okt', '11'=>'Nov', '12'=>'Des'] as $key  => $value)
+                                <option 
+                                @if ($key == date('m')) 
+                                selected 
+                                @endif
+                                value="{{$key}}" 
+                                >{{$value}}</option>
+                                @endforeach
+                            </select>
+                            <input type="number" class="form-control" name="thn" value="{{date('Y')}}">
+                          <div class="input-group-append">
+                            <button class="input-group-text btn btn-info" type="submit">Print</button>
+                          </div>
+                        </div>  
+                    </form>
+                </td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
