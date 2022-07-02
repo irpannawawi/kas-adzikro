@@ -9,6 +9,11 @@ use \App\Models\Produk;
 use \App\Models\Prson;
 use \App\Models\Akun;
 use \App\Models\Jurnal;
+use Illuminate\Support\Facades\Auth;
+
+
+
+
 class PemasukanController extends Controller
 {
     // 
@@ -44,6 +49,7 @@ class PemasukanController extends Controller
         
         $transaksi->id_produk = $dataInput['id_produk'];
         $transaksi->id_kontak = $dataInput['id_kontak'];
+        $transaksi->id_user = Auth::user()->id_user;
         $transaksi->id_prson = $dataInput['id_prson'];
         $transaksi->keterangan = $dataInput['keterangan'];
         $transaksi->tanggal = $dataInput['tanggal'];
@@ -116,11 +122,5 @@ class PemasukanController extends Controller
         ];
         return view('bendahara.transaksi', $data);
     }
-    public function delete_transaksi(Request $request, $id)
-    {
-        $jurnal = Jurnal::where('id_transaksi', $id)->delete();
-        $pemasukan = Pemasukan::where('id_transaksi',$id)->delete();
-        return redirect('pemasukan')->with('msg-danger', 'Transaksi Dihapus');
 
-    }
 }

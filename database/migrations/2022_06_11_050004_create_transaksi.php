@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->increments('id_transaksi')->primary;
             $table->integer('id_produk')->unsigned()->nullable();
+            $table->integer('id_user')->unsigned();
             $table->integer('id_kontak')->unsigned()->nullable();
             $table->integer('id_prson')->unsigned()->nullable();
             $table->string('keterangan', 255);

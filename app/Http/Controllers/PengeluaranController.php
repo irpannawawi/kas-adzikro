@@ -9,6 +9,7 @@ use \App\Models\Produk;
 use \App\Models\Prson;
 use \App\Models\Akun;
 use \App\Models\Jurnal;
+use Illuminate\Support\Facades\Auth;
 
 class PengeluaranController extends Controller
 {
@@ -36,6 +37,7 @@ class PengeluaranController extends Controller
         $transaksi->id_produk = null;
         $transaksi->id_kontak = $request->input('id_kontak');
         $transaksi->id_prson = $request->input('id_prson');
+        $transaksi->id_user = Auth::user()->id_user;
         $transaksi->keterangan = $dataInput['keterangan'];
         $transaksi->tanggal = $dataInput['tanggal'];
         $transaksi->nominal = $dataInput['dibayar'];
@@ -64,63 +66,8 @@ class PengeluaranController extends Controller
             ];
             Jurnal::insert([$dataDebit, $dataKredit]);
 
-        // id_transaksi    id_akun nominal
-        // if($request->input('dibayar') < $request->input('harga') )
-        // {
-        //     // insert debit
-        //         $dataDebit = [
-        //             'id_transaksi'=>$id_transaksi, 
-        //             'kode_akun'=>$request->input('akun'),
-        //             'debit'=>$request->input('harga'),
-        //             'kredit'=>0,
-        //         ];
-        //     // insert kredit
-        //         $produk = Produk::find($transaksi->id_produk)->get();
-
-        //         $dataKredit = [
-        //             'id_transaksi'=>$id_transaksi, 
-        //             'kode_akun'=>$produk[0]->kredit_akun_id,
-        //             'kredit'=>$request->input('dibayar'),
-        //             'debit'=>0,
-        //         ];
-        //         $dataDebitPiutang = [
-        //             'id_transaksi'=>$id_transaksi, 
-        //             'kode_akun'=>'200-10',
-        //             'debit'=>$request->input('harga')-$request->input('dibayar'),
-        //             'kredit'=>0,
-        //         ];
-        //     // insert debit piutang
-        //         Jurnal::insert([0=>$dataDebit, 1=>$dataKredit, 2=>$dataDebitPiutang]);
-        // }else{
-
-        //     // insert debit
-        //         $dataDebit = [
-        //             'id_transaksi'=>$id_transaksi, 
-        //             'kode_akun'=>$request->input('akun'),
-        //             'debit'=>$request->input('harga'),
-        //             'kredit'=>0,
-        //         ];
-        //     // insert kredit
-        //         $produk = Produk::find($transaksi->id_produk)->get();
-
-        //         $dataKredit = [
-        //             'id_transaksi'=>$id_transaksi, 
-        //             'kode_akun'=>$produk[0]->kredit_akun_id,
-        //             'debit'=>0,
-        //             'kredit'=>$request->input('dibayar'),
-        //         ];
-
-        //         Jurnal::insert([$dataDebit, $dataKredit]);
-        // }
-
         return redirect('result_transaksi/'.$id_transaksi)->with('url-back', route('pengeluaran'));
     }
 
-    public function delete_transaksi(Request $request, $id)
-    {
-        $jurnal = Jurnal::where('id_transaksi', $id)->delete();
-        $pemasukan = Pengeluaran::where('id_transaksi',$id)->delete();
-        return redirect('pengeluaran')->with('msg-danger', 'Transaksi Dihapus');
-
-    }
+    
 }

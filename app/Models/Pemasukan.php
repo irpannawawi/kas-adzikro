@@ -13,6 +13,7 @@ class Pemasukan extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_produk',
+        'id_user',
         'id_kontak',
         'id_prson',
         'keterangan',
@@ -34,4 +35,9 @@ class Pemasukan extends Model
     {
         return $this->hasOne(Prson::class, 'id_prson', 'id_prson');
     }
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id_user', 'id_user');
+    }
+
 }

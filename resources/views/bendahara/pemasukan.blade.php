@@ -53,6 +53,7 @@
 					<tr class="bg-dark text-center">
             <th>No</th>
 						<th>Tanggal</th>
+            <th>Editor</th>
             <th>Produk/Jasa</th>
 						<th>Keterangan</th>
 						<th>Nama</th>
@@ -60,9 +61,6 @@
             <th>No. Tlp</th>
             <th>Alamat</th>
             <th>Jumlah</th>
-        @if (Auth::user()->level == 'bendahara')
-						<th>Aksi</th>
-        @endif
 					</tr>
           </thead>
           @php 
@@ -71,20 +69,15 @@
           @foreach ($pemasukan as $p)
           <tr>
           <td><a href="{{route('result_transaksi', ['id'=>$p->id_transaksi])}}" class="link">{{ $n++ }}</a></td>
-            <td>{{ $p->produk->nama_produk }}</td>
-            <td>{{ $p->tanggal }}</td>
+          <td>{{ $p->tanggal }}</td>
+          <td>{{ $p->user->nama }}</td>
+          <td>{{ $p->produk->nama_produk }}</td>
             <td>{{ $p->keterangan }}</td>
             <td>{{ $p->kontak->nama_kontak }}</td>
             <td>{{ $p->kontak->email }}</td>
             <td>{{ $p->kontak->no_tlp }}</td>
             <td>{{ $p->kontak->alamat }}</td>
             <td class="text-right" nowrap>Rp. {{ number_format($p->nominal, 0, '.', ',') }},-</td>
-        @if (Auth::user()->level == 'bendahara')
-            <td class="text-center">
-              <!-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" onclick="fill_edit('{{ $p->id_kontak }}','{{ $p->kode_kontak }}','{{ $p->nama_kontak }}', '{{ $p->email }}', '{{ $p->no_tlp }}', '{{ $p->alamat }}');">Edit</button> -->
-              <a onclick="return confirm('Hapus data kontak?')" href="{{ route('delete_pemasukan', ['id'=>$p->id_transaksi]) }}" class="btn btn-danger btn-sm">Hapus</a>
-            </td>
-            @endif
           </tr>
           @endforeach
 				</table>

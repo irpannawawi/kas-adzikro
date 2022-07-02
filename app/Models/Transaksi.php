@@ -14,6 +14,7 @@ class Transaksi extends Model
     protected $fillable = [
         'id_produk',
         'id_kontak',
+        'id_user',
         'id_prson',
         'keterangan',
         'tanggal',
@@ -38,5 +39,11 @@ class Transaksi extends Model
     public function jurnal()
     {
         return $this->hasMany(Jurnal::class, 'id_transaksi', 'id_transaksi');
+    }    
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id_user', 'id_user');
     }
+
+
 }
