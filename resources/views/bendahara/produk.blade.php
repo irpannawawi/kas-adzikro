@@ -183,7 +183,7 @@
                 <div class="form-group">
                   <label for="hargaProdukEdit">Akun</label>
                   <div class="input-group">
-                    <select name="akun" id="akun">
+                    <select name="akun" id="akun" class="form-control">
                       @foreach ($akun as $ak)
                       <option value="{{$ak->kode_akun }}">{{ $ak->kode_akun }} {{ $ak->nama_akun }}</option>
                       @endforeach

@@ -98,8 +98,7 @@ class PemasukanController extends Controller
                     'kredit'=>0,
                 ];
             // insert kredit
-                $produk = Produk::find($transaksi->id_produk)->get();
-
+                $produk = Produk::where('id_produk', $transaksi->id_produk)->get();
                 $dataKredit = [
                     'id_transaksi'=>$id_transaksi, 
                     'kode_akun'=>$produk[0]->kredit_akun_id,

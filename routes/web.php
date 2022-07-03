@@ -83,7 +83,9 @@ Route::middleware('level-user:bendahara,pimpinan')->group(function () {
 
 // ==========  pimpinan routing ==========
 Route::middleware('level-user:pimpinan')->group(function () {
-    Route::get('pimpinan/dashboard', [PimpinanController::class, 'index']);
+    Route::get('pimpinan/dashboard', function(){
+        return redirect('dashboard');
+    });
 
     // // master data administrator
     // Route::get('/administrator', [MasterdataController::class, 'view_administrator'])->name('administrator');

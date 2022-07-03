@@ -94,7 +94,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-primary">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Akun</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pemasukan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -148,7 +148,7 @@
 	              </div>
               	</div>
               	<div class="col-6">
-	              <div class="form-group">
+	              <div class="form-group" >
 	                <label for="namaAkun">Akun</label>
 	                <select name="akun" id="akun" class="form-control">
 	                	@foreach ($akun as $a )
