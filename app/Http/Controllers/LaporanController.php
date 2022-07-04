@@ -19,7 +19,7 @@ class LaporanController extends Controller
             $thn = date('Y');
         }
 
-        $data['transaksi'] = Transaksi::where('tanggal', 'like', $thn.'-'.$bln.'-%')->get();
+        $data['transaksi'] = Transaksi::where('tanggal', 'like', $thn.'-'.$bln.'-%')->orderBy('tanggal', 'asc')->get();
         return view('bendahara.jurnal', $data);
     }
 
@@ -69,13 +69,13 @@ class LaporanController extends Controller
         }
 
         if($request->input('tipe_transaksi') == 'masuk'){
-            $data['transaksi'] = Transaksi::where('tanggal', 'like', '%'.$date.'%')->where('tipe', 'masuk')->get();
+            $data['transaksi'] = Transaksi::where('tanggal', 'like', '%'.$date.'%')->where('tipe', 'masuk')->orderBy('tanggal', 'asc')->get();
             $data['title'] = "Laporan Pemasukan";
         }else if($request->input('tipe_transaksi') == 'keluar'){
-            $data['transaksi'] = Transaksi::where('tanggal', 'like', '%'.$date.'%')->where('tipe', 'keluar')->get();
+            $data['transaksi'] = Transaksi::where('tanggal', 'like', '%'.$date.'%')->where('tipe', 'keluar')->orderBy('tanggal', 'asc')->get();
             $data['title'] = "Laporan Pengeluaran";
         }else{
-            $data['transaksi'] = Transaksi::where('tanggal', 'like', '%'.$date.'%')->get();
+            $data['transaksi'] = Transaksi::where('tanggal', 'like', '%'.$date.'%')->orderBy('tanggal', 'asc')->get();
         }
         $pdf = PDF::loadView('pdf.laporan_transaksi', $data)->setPaper('a4', 'potrait');
         return $pdf->stream();

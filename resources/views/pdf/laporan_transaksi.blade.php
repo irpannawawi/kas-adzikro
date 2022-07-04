@@ -108,7 +108,7 @@
             @endif
             <td>{{ $tr->keterangan }}</td>
             <td class="text-center">{{ $tr->tanggal }}</td>
-            <td class="{{$tr->tipe=='masuk'?'text-success text-left':'text-danger text-right'}}">Rp. {{ number_format($tr->nominal,0,'.',',') }},-</td>
+            <td class="{{$tr->tipe=='masuk'?'text-success text-left':'text-danger text-right'}}" nowrap>Rp. {{ number_format($tr->nominal,0,'.',',') }},-</td>
           </tr>
           @php
           if($tr->tipe == 'masuk')
@@ -121,7 +121,7 @@
           @endforeach
           <tr style="color:white;">
             <th colspan="{{!isset($title) || $title == 'Laporan Pemasukan'?5:4;}}">Total</th>
-            <th>Rp. {{ number_format($jumlah,0,'.',',') }},-</th>
+            <th nowrap>Rp. {{ number_format($jumlah,0,'.',',') }},-</th>
           </tr>
         </table><br>
         <br>
@@ -131,7 +131,7 @@
         <br>
         <br>
         <br>
-        {{Str::ucfirst(Auth::user()->level)}}
+        {{Str::ucfirst(Auth::user()->nama)}}
       </p>
 </body>
 </html> 
