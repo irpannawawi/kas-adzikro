@@ -10,6 +10,7 @@ use App\Models\Akun;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class MasterdataController extends Controller
 {
@@ -292,7 +293,7 @@ class MasterdataController extends Controller
         $admin = User::find($request->input('id_user'));
         if($request->input('password') !== null){
             if($request->input('password') === $request->input('confirm_password')){
-                $admin->password = $request->input('password');
+                $admin->password = Hash::make($request->input('password'));
             }else{
                 return redirect('administrator')->with('msg-danger', 'Password tidak cocok');
             }

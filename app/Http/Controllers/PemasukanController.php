@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use \App\Models\Pemasukan;
 use \App\Models\Kontak;
@@ -11,12 +9,8 @@ use \App\Models\Akun;
 use \App\Models\Jurnal;
 use Illuminate\Support\Facades\Auth;
 
-
-
-
 class PemasukanController extends Controller
 {
-    // 
     public function index(Request $request)
     {
         $data['pemasukan'] = Pemasukan::where('tipe', 'masuk')->get();
@@ -26,13 +20,13 @@ class PemasukanController extends Controller
         $data['akun'] = Akun::get();
         return view('bendahara.pemasukan', $data);
     } 
+
     public function get_produk(Request $request)
     {
         $id = $request->input('id');
         $produk = Produk::where('id_produk', $id)->get();
         return response()->json(['status'=>'ok', 'id'=>$id, 'data'=>$produk]);
     }
-
 
     public function add_pemasukan(Request $request)
     {
@@ -44,9 +38,7 @@ class PemasukanController extends Controller
             'keterangan' => ['required'],
             'tanggal' => ['required']
         ]);
-
         $transaksi = new Pemasukan;
-        
         $transaksi->id_produk = $dataInput['id_produk'];
         $transaksi->id_kontak = $dataInput['id_kontak'];
         $transaksi->id_user = Auth::user()->id_user;
@@ -55,10 +47,8 @@ class PemasukanController extends Controller
         $transaksi->tanggal = $dataInput['tanggal'];
         $transaksi->nominal = $request->input('harga');
         $transaksi->tipe = 'masuk';
-
         $transaksi->save();
         $id_transaksi = $transaksi->id_transaksi;
-
 
         // insert ke tabel jurnal
         // id_transaksi    id_akun nominal
@@ -105,21 +95,17 @@ class PemasukanController extends Controller
                     'debit'=>0,
                     'kredit'=>$request->input('dibayar'),
                 ];
-
                 Jurnal::insert([$dataDebit, $dataKredit]);
         }
-
         return redirect('result_transaksi/'.$id_transaksi)->with('url-back', route('pemasukan'));
-
     }
+
     public function result_transaksi(Request $request, $id)
     {
-
         $data = [
             'transaksi' => Pemasukan::where('id_transaksi', $id)->get(),
             'jurnal' => Jurnal::where('id_transaksi', $id)->get(),
         ];
         return view('bendahara.transaksi', $data);
     }
-
 }

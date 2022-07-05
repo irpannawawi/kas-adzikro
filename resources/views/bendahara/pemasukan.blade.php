@@ -172,40 +172,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Akun</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/edit_akun" method="post" enctype="multipart/form-data">
-          @csrf
-            <div class="card-body">
-              <div class="form-group">
-                <label for="kodeAkunEdit">Kode Akun</label>
-                <input type="text" class="form-control" id="kodeAkunEdit" name="kode_akun" placeholder="Kode Akun" required>
-                <input type="text" id="idAkunEdit" name="id_akun" hidden>
-              </div>
-              <div class="form-group">
-                <label for="namaAkunEdit">Nama Akun</label>
-                <input type="text" class="form-control" id="namaAkunEdit" name="nama_akun" placeholder="Nama Akun" required>
-              </div>
-            </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-              <button type="submit" class="btn btn-success">Simpan</button>
-              <button class="btn btn-danger" data-dismiss="modal">Batal</button>
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="modal fade" id="modal-print" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

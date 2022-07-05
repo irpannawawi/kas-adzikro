@@ -118,13 +118,22 @@
           					<p>Person Level</p>
           				</a>
           			</li>
+          			<li class="nav-item">
+          				<a href="{{route('profil')}}" class="nav-link">
+          					<i class="far fa-circle nav-icon"></i>
+          					<p>Profil</p>
+          				</a>
+          			</li>
           	@endif
+          	@if (Auth::user()->level != 'bendahara')
+
           			<li class="nav-item">
           				<a href="{{route('administrator')}}" class="nav-link">
           					<i class="far fa-circle nav-icon"></i>
           					<p>Administrator</p>
           				</a>
           			</li>
+          	@endif
           		</ul>
           	</li>
           	<li class="nav-item">
@@ -234,7 +243,6 @@
 $(document).ready( function () {
     $('#dataTable').DataTable();
 });
-
 
 </script>
 

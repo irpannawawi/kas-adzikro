@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use \App\Models\Pengeluaran;
 use \App\Models\Kontak;
@@ -13,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PengeluaranController extends Controller
 {
-    //
-    // 
     public function index(Request $request)
     {
         $data['pemasukan'] = Pengeluaran::where('tipe', 'keluar')->get();
@@ -33,7 +29,6 @@ class PengeluaranController extends Controller
             'dibayar' => ['required']
         ]);
         $transaksi = new Pengeluaran;
-        
         $transaksi->id_produk = null;
         $transaksi->id_kontak = $request->input('id_kontak');
         $transaksi->id_prson = $request->input('id_prson');
@@ -42,13 +37,10 @@ class PengeluaranController extends Controller
         $transaksi->tanggal = $dataInput['tanggal'];
         $transaksi->nominal = $dataInput['dibayar'];
         $transaksi->tipe = 'keluar';
-
         $transaksi->save();
         $id_transaksi = $transaksi->id_transaksi;
 
-
         // insert ke tabel jurnal
-
         // insert debit
             $dataDebit = [
                 'id_transaksi'=>$id_transaksi, 
@@ -57,7 +49,6 @@ class PengeluaranController extends Controller
                 'kredit'=>0,
             ];
         // insert kredit
-
             $dataKredit = [
                 'id_transaksi'=>$id_transaksi, 
                 'kode_akun'=>$request->input('akun_kredit'),
@@ -65,9 +56,6 @@ class PengeluaranController extends Controller
                 'kredit'=>$request->input('dibayar'),
             ];
             Jurnal::insert([$dataDebit, $dataKredit]);
-
         return redirect('result_transaksi/'.$id_transaksi)->with('url-back', route('pengeluaran'));
-    }
-
-    
+    } 
 }

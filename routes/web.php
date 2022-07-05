@@ -60,6 +60,9 @@ Route::middleware('level-user:bendahara,pimpinan')->group(function () {
     Route::post('/add_administrator', [MasterdataController::class, 'store_administrator'])->name('add_administrator');
     Route::post('/edit_administrator', [MasterdataController::class, 'update_administrator'])->name('edit_administrator');
     Route::get('/delete_administrator/{id_administrator}', [MasterdataController::class, 'delete_administrator'])->name('delete_administrator');
+    Route::get('/profil', [BendaharaController::class, 'profil'])->name('profil');
+    Route::post('/profil', [BendaharaController::class, 'update_profil'])->name('update_profil');
+
 
     // Pemasukan
     Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan');
