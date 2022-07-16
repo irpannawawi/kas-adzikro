@@ -66,7 +66,6 @@
             <div class="small-box bg-teal">
               <div class="inner">
                 <h3>{{$jumlah_prson_level}}</h3>
-
                 <p>Prson Level</p>
               </div>
               <div class="icon">
@@ -94,7 +93,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><small>Rp. {{number_format($jumlah_pemasukan*10, 0, '.', ',')}},-</small></h3>
+                <h3><small>Rp. {{number_format($jumlah_pemasukan, 0, '.', ',')}},-</small></h3>
 
                 <p>Pemasukan</p>
               </div>
