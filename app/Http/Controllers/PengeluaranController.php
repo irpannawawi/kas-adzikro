@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Models\Pengeluaran;
+use \App\Models\Pemasukan;
 use \App\Models\Kontak;
 use \App\Models\Produk;
 use \App\Models\Prson;
@@ -18,6 +19,8 @@ class PengeluaranController extends Controller
         $data['prson_level'] = Prson::get();
         $data['produk'] = Produk::get();
         $data['akun'] = Akun::get();
+        $data['saldo'] = Pemasukan::where('tipe', 'masuk')->sum('nominal') - Pengeluaran::where('tipe', 'keluar')->get()->sum('nominal');
+
         return view('bendahara.pengeluaran', $data);
     } 
 
@@ -58,4 +61,12 @@ class PengeluaranController extends Controller
             Jurnal::insert([$dataDebit, $dataKredit]);
         return redirect('result_transaksi/'.$id_transaksi)->with('url-back', route('pengeluaran'));
     } 
+
+    public function delete_transaksi(Request $request, $id)
+    {
+        $jurnal = Jurnal::where('id_transaksi', $id)->delete();
+        $pemasukan = Pengeluaran::where('id_transaksi',$id)->delete();
+        return redirect('pengeluaran')->with('msg-danger', 'Transaksi Dihapus');
+
+    }
 }

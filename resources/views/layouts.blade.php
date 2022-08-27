@@ -31,6 +31,7 @@
 	<!-- Theme style -->
 	<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/dist/css/adminlte.min.css">
 	<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/plugins/jquery-ui/jquery-ui.css">
+	<link rel="stylesheet" href="{{ asset('/')}}AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 	<!-- Site wrapper -->
@@ -245,12 +246,13 @@
 <link rel="stylesheet" href="{{ asset('/')}}AdminLTE/plugins/fontawesome6/js/all.min.js">
 <!-- AdminLTE App -->
 <script src="{{ asset('/')}}AdminLTE/dist/js/adminlte.min.js"></script>
+<script src="{{ asset('/')}}AdminLTE/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
 $(document).ready( function () {
     $('#dataTable').DataTable();
 });
 
 </script>
-
+@yield('extra-js')
 </body>
 </html>

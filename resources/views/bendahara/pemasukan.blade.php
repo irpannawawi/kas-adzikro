@@ -61,6 +61,9 @@
             <th>No. Tlp</th>
             <th>Alamat</th>
             <th>Jumlah</th>
+            @if (Auth::user()->level == 'bendahara')
+              <th>Aksi</th>
+            @endif
 					</tr>
           </thead>
           @php 
@@ -78,6 +81,13 @@
             <td>{{ $p->kontak->no_tlp }}</td>
             <td>{{ $p->kontak->alamat }}</td>
             <td class="text-right" nowrap>Rp. {{ number_format($p->nominal, 0, '.', ',') }},-</td>
+
+            @if (Auth::user()->level == 'bendahara')
+            <td class="text-center">
+              <!-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" onclick="fill_edit('{{ $p->id_kontak }}','{{ $p->kode_kontak }}','{{ $p->nama_kontak }}', '{{ $p->email }}', '{{ $p->no_tlp }}', '{{ $p->alamat }}');">Edit</button> -->
+              <a onclick="return confirm('Hapus data kontak?')" href="{{ route('delete_pemasukan', ['id'=>$p->id_transaksi]) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+            </td>
+            @endif
           </tr>
           @endforeach
 				</table>

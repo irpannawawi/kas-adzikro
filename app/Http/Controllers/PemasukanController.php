@@ -108,4 +108,12 @@ class PemasukanController extends Controller
         ];
         return view('bendahara.transaksi', $data);
     }
+
+    public function delete_transaksi(Request $request, $id)
+    {
+        $jurnal = Jurnal::where('id_transaksi', $id)->delete();
+        $pemasukan = Pengeluaran::where('id_transaksi',$id)->delete();
+        return redirect('pengeluaran')->with('msg-danger', 'Transaksi Dihapus');
+
+    }
 }

@@ -147,6 +147,15 @@ header a, a:visited {
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
+      @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
       <p class="login-box-msg">Silahkan Login</p>
 
       <form action="act_login" method="post">

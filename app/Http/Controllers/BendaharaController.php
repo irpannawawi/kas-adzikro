@@ -12,6 +12,7 @@ use App\Models\Prson;
 use App\Models\User;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+setlocale(LC_ALL, 'IND');
 
 class BendaharaController extends Controller
 {
@@ -25,6 +26,10 @@ class BendaharaController extends Controller
         $data['jumlah_pemasukan'] = Pemasukan::where('tanggal', 'LIKE', date('Y-m').'%')->where('tipe', 'masuk')->sum('nominal');
 
         $data['jumlah_pengeluaran'] = Pengeluaran::where('tanggal', 'LIKE', date('Y-m').'%')->where('tipe', 'keluar')->get()->sum('nominal');
+
+        $data['saldo'] = Pemasukan::where('tipe', 'masuk')->sum('nominal') - Pengeluaran::where('tipe', 'keluar')->get()->sum('nominal');
+        $data['all_pemasukan'] = Pemasukan::where('tipe', 'masuk')->sum('nominal');
+        $data['all_pengeluaran'] = Pengeluaran::where('tipe', 'keluar')->get()->sum('nominal');
         // dd($data['jumlah_pengeluaran']);
         return view('bendahara.dashboard', $data);
     }

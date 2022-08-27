@@ -150,11 +150,19 @@ header a, a:visited {
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Silahkan Login</p>
-
+@if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
       <form action="act_login" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email">
+          <input type="email" name="email" class="form-control" placeholder="Email" value="{{old('email')}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -162,7 +170,7 @@ header a, a:visited {
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Password" value="{{old('password')}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

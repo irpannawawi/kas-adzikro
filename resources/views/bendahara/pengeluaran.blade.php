@@ -57,6 +57,9 @@
           <th>No. Tlp</th>
           <th>Alamat</th>
           <th>Jumlah</th>
+          @if (Auth::user()->level == 'bendahara')
+            <th>Aksi</th>
+          @endif
         </tr>
          </thead>
         @php 
@@ -73,6 +76,12 @@
           <td>{{ $p->kontak->no_tlp }}</td>
           <td>{{ $p->kontak->alamat }}</td>
           <td class="text-right" nowrap>Rp. {{ number_format($p->nominal, 0, '.', ',') }},-</td>
+          @if (Auth::user()->level == 'bendahara')
+          <td class="text-center">
+            <!-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" onclick="fill_edit('{{ $p->id_kontak }}','{{ $p->kode_kontak }}','{{ $p->nama_kontak }}', '{{ $p->email }}', '{{ $p->no_tlp }}', '{{ $p->alamat }}');">Edit</button> -->
+            <a onclick="return confirm('Hapus data kontak?')" href="{{ route('delete_pengeluaran', ['id'=>$p->id_transaksi]) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+          </td>
+          @endif
         </tr>
         @endforeach
       </table>
@@ -95,7 +104,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/add_pengeluaran" method="post" enctype="multipart/form-data">
+        <form action="/add_pengeluaran" method="post" enctype="multipart/form-data" id="form-add">
           @csrf
           <div class="card-body">
               <div class="form-group">
@@ -239,6 +248,7 @@
   </div>
 </div>
 @endsection
+@section('extra-js')
 
 <script>
   function fill_edit(id, kode, nama){
@@ -259,6 +269,35 @@
   	});
   }
 
+  lanjutkan = false;
+  $('#form-add').on('submit', function(event){
+    let saldo = '{{$saldo}}'
+    let nominal_keluar = $('#dibayar').val()
+
+    console.log(lanjutkan)
+
+    if(parseInt(saldo) < parseInt(nominal_keluar)){
+      if(lanjutkan == false){
+        event.preventDefault();
+        Swal.fire({
+          title: 'Saldo tidak mencukupi untuk transaksi ini!!',
+          showDenyButton: true,
+          confirmButtonText: 'Lanjutkan',
+          denyButtonText: `Batal`,
+        }).then((result)=>{
+          if (result.isConfirmed) {
+            lanjutkan = true
+            $(this).submit();
+          } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info')
+            return false;
+          }
+        })
+      }else{
+        event.currentTarget.submit();
+      }
+    }
+  });
   function kalkulasi(){
   	// jika yang dibayarkan kurang dari harga
   	let harga = parseInt($('#harga').val());
@@ -273,3 +312,5 @@
   	}
   }
 </script>
+
+@endsection

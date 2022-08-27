@@ -17,6 +17,28 @@
     </div>
   </div>
   <div class="card-body">
+    <div class="row">
+      <div class="col-lg-6">  
+        <table class="table table-borderless table-sm">
+          <tr>
+            <td>Jumlah Seluruh pemasukan</td>
+            <td style="width: 20%;">:</td>
+            <th class="text-right">Rp. {{number_format($all_pemasukan, 0, '.', ',')}},-</th>
+          </tr>
+          <tr class="border-bottom">
+            <td>Jumlah Pengeluaran</td>
+            <td style="width: 20%;">:</td>
+            <th class="text-right">Rp. {{number_format($all_pengeluaran, 0, '.', ',')}},-</th>
+          </tr>
+          <tr>
+            <td>Jumlah Saldo Saat Ini :</td>
+            <td style="width: 20%;">:</td>
+            <th class="text-right">Rp. {{number_format($saldo, 0, '.', ',')}},-</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+      <h5>Data Bulan <strong>{{strftime("%B %Y");}}</strong></h5>
   	<div class="row">
           	@if (Auth::user()->level == 'bendahara')
   		<div class="col-lg-3 col-6">
