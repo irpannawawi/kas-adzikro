@@ -13,7 +13,7 @@ class PemasukanController extends Controller
 {
     public function index(Request $request)
     {
-        $data['pemasukan'] = Pemasukan::where('tipe', 'masuk')->get();
+        $data['pemasukan'] = Pemasukan::orderBy('tanggal', 'desc')->where('tipe', 'masuk')->get();
         $data['kontak'] = Kontak::get();
         $data['prson_level'] = Prson::get();
         $data['produk'] = Produk::get();

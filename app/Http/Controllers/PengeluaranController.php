@@ -14,7 +14,7 @@ class PengeluaranController extends Controller
 {
     public function index(Request $request)
     {
-        $data['pemasukan'] = Pengeluaran::where('tipe', 'keluar')->get();
+        $data['pemasukan'] = Pengeluaran::orderBy('tanggal', 'desc')->where('tipe', 'keluar')->get();
         $data['kontak'] = Kontak::get();
         $data['prson_level'] = Prson::get();
         $data['produk'] = Produk::get();
